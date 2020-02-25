@@ -4,10 +4,7 @@ output.elasticsearch:
 setup.kibana:
   host: "${KIBANA_HOST}"
 
-heartbeat.monitors:
-  - type: http
-    schedule: "@every 5s"
-    urls:
-      - http://elasticsearch:9200
-      - http://kibana:5601
-      - https://google.com
+heartbeat.config.monitors:
+  path: /usr/share/heartbeat/monitors.d/*.yml
+  reload.enabled: true
+  reload.period: 5s

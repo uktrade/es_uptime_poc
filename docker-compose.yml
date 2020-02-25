@@ -5,7 +5,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
     container_name: es
     volumes:
-      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:rw
     ports:
       - 9200:9200
       - 9300:9300
@@ -33,7 +33,8 @@ services:
       - KIBANA_HOST="kibana:5601"
     volumes:
       - ./heartbeat.docker.yml:/usr/share/heartbeat/heartbeat.yml:ro
-    command: --strict.perms=false
+      - ./monitors.d:/usr/share/heartbeat/monitors.d:ro
+    command: --strict.perms=false -e -v -d "*"
     restart: on-failure
     depends_on:
       - es
