@@ -1,10 +1,17 @@
 - type: http
   name: HTTP(s)
-  schedule: "@every 30s"
+  schedule: "@every 60s"
+  timeout: 30s
   tags: ["uptime","upsince"]
   urls:
     - http://elasticsearch:9200
     - http://kibana:5601
     - https://google.com
     - https://this.will.never.exist
-  
+    
+  check:
+    request.method: GET
+    
+    response:
+      status: 200
+      body: OK

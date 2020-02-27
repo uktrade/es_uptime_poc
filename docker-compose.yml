@@ -31,10 +31,11 @@ services:
     environment:
       - ELASTIC_SEARCH_HOSTS=["elasticsearch:9200"]
       - KIBANA_HOST="kibana:5601"
+      - DEBUG_LEVEL=info
     volumes:
-      - ./heartbeat.docker.yml:/usr/share/heartbeat/heartbeat.yml:ro
+      - ./heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
       - ./monitors.d:/usr/share/heartbeat/monitors.d:ro
-    command: --strict.perms=false -e -v -d "*"
+    command: --strict.perms=false
     restart: on-failure
     depends_on:
       - es

@@ -4,15 +4,7 @@ output.elasticsearch:
 setup.kibana:
   host: "${KIBANA_HOST}"
 
-queue.mem:
-    events: 8192
-    flush.min_events: 1024
-    flush.timeout: 10s
-
 heartbeat.config.monitors:
   path: /usr/share/heartbeat/monitors.d/*.yml
   reload.enabled: true
-  reload.period: 30s
-
-logging.level: ${DEBUG_LEVEL:info}
-logging.to_stderr: true
+  reload.period: 5s
