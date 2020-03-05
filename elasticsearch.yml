@@ -3,3 +3,15 @@ network.host: 0.0.0.0
 xpack.watcher.enabled: true
 xpack.monitoring.enabled: false
 xpack.security.enabled: false
+
+xpack.notification.slack:
+  account:
+    monitoring:
+      message_defaults:
+        from: Uptime
+        to: dvadgama
+        icon: https://image.flaticon.com/icons/png/256/2240/2240669.png
+        attachment:
+          fallback: "Uptime"
+          color: "#36a64f"
+          title: "Uptime"

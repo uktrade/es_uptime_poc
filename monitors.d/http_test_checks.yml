@@ -2,16 +2,13 @@
   name: HTTP(s)
   schedule: "@every 60s"
   timeout: 30s
-  tags: ["uptime","upsince"]
+  tags: ["uptime"]
   urls:
-    - http://elasticsearch:9200
-    - http://kibana:5601
-    - https://google.com
-    - https://this.will.never.exist
-    
+    - https://dummy-error-app.london.cloudapps.digital/
+    - https://dummy-error-app.london.cloudapps.digital/db
   check:
     request.method: GET
-    
+
     response:
       status: 200
       body: OK
