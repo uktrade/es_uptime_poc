@@ -40,11 +40,15 @@
                 "field": "url.full",
                 "size": 10,
                 "min_doc_count": 1
-              }
-            },
-            "by_http_content": {
-              "terms": {
-                "field": "http.response.body.content"
+              },
+              "aggregations": {
+                "by_http_content": {
+                  "terms": {
+                    "field": "http.response.body.content",
+                    "size": 10,
+                    "min_doc_count": 1
+                  }
+                }
               }
             }
           }
@@ -73,7 +77,7 @@
               "color": "danger",
               "title": "{{key}}",
               "title_link": "{{key}}",
-              "text": "{{ctx.payload.aggregations.by_http_content.buckets.key}}"
+              "text": "{{by_http_content.buckets.key}}"
             }
           }
         }
