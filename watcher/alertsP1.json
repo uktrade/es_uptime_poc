@@ -84,7 +84,7 @@
     "notify-slack": {
       "throttle_period_in_millis": 300000,
       "slack": {
-        "account": "alert_p2",
+        "account": "alert_p1",
         "message": {
           "from": "Heartbeat",
           "to": [
