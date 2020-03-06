@@ -1,8 +1,8 @@
 - type: http
-  name: HTTP(s)
+  name: P1_HTTP
   schedule: "@every 60s"
   timeout: 30s
-  tags: ["uptime"]
+  tags: ["alert_p1"]
   urls:
     - https://dummy-error-app.london.cloudapps.digital/
     - https://dummy-error-app.london.cloudapps.digital/db

@@ -1,0 +1,107 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "1m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "heartbeat-*"
+        ],
+        "rest_total_hits_as_int": true,
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "monitor.status": {
+                      "value": "down"
+                    }
+                  }
+                },
+                {
+                  "term": {
+                    "monitor.name": {
+                      "value": "P1_HTTP"
+                    }
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "from": "now-2m"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggregations": {
+            "by_url": {
+              "terms": {
+                "field": "url.full",
+                "size": 10,
+                "min_doc_count": 1
+              },
+              "aggregations": {
+                "by_http_content": {
+                  "terms": {
+                    "field": "http.response.body.content",
+                    "size": 10,
+                    "min_doc_count": 1
+                  },
+                  "aggs": {
+                    "remove_dups": {
+                      "top_hits": {
+                        "size": 1,
+                        "_source": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 1
+      }
+    }
+  },
+  "actions": {
+    "notify-slack": {
+      "throttle_period_in_millis": 300000,
+      "slack": {
+        "account": "alert_p2",
+        "message": {
+          "from": "Heartbeat",
+          "to": [
+            "dvadgama"
+          ],
+          "text": "Something Went Wrong.",
+          "dynamic_attachments": {
+            "list_path": "ctx.payload.aggregations.by_url.buckets",
+            "attachment_template": {
+              "color": "danger",
+              "title": "{{key}}",
+              "title_link": "{{key}}",
+              "text": "{{#by_http_content.buckets}}{{key}}{{/by_http_content.buckets}}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

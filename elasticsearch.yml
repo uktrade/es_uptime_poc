@@ -6,12 +6,19 @@ xpack.security.enabled: false
 
 xpack.notification.slack:
   account:
-    monitoring:
-      message_defaults:
-        from: Uptime
-        to: dvadgama
-        icon: https://image.flaticon.com/icons/png/256/2240/2240669.png
-        attachment:
-          fallback: "Uptime"
-          color: "#36a64f"
-          title: "Uptime"
+    alert_p1:
+        message_defaults:
+          from: Uptime
+          icon: https://image.flaticon.com/icons/png/256/2240/2240669.png
+          attachment:
+            fallback: "Uptime"
+            color: "#36a64f"
+            title: "Uptime"
+    alert_p2:
+        message_defaults:
+          from: Uptime
+          icon: https://image.flaticon.com/icons/png/256/2240/2240669.png
+          attachment:
+            fallback: "Uptime"
+            color: "#36a64f"
+            title: "Uptime"

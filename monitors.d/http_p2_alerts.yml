@@ -1,0 +1,14 @@
+- type: http
+  name: P2_HTTP
+  schedule: "@every 60s"
+  timeout: 30s
+  tags: ["alert_p2"]
+  urls:
+    - https://dummy-error-app.london.cloudapps.digital/download
+    - https://dummy-error-app.london.cloudapps.digital/thisPageDoesNotExist
+  check:
+    request.method: GET
+
+    response:
+      status: 200
+      body: OK
