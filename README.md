@@ -1,6 +1,10 @@
 # ES Watcher Uptime POC
 
-Purpose To test
+## Purpose
+Purpose is to validate, if uptime and watcher can monitor web site and, send an alert to slack with both
+ - URL in question 
+ - details of Error encountered
+ 
 ## Prequisites
 - docker
 - docker-compose
