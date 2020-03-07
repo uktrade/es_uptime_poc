@@ -22,5 +22,6 @@ P2_URLS=https://<your.P2domian1.com>,https://<your.P2domain2.com>
 ```
 
 ## Usage
- once configured all environment variables, simply execute `./start.sh ` and, visit Kibana[http://localhost:5601]
+ - once configured all environment variables, simply execute `./start.sh ` and, visit [Kibana](http://localhost:5601)
+ - ```./stop.sh``` when you're done.
  
