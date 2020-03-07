@@ -2,16 +2,22 @@ version: "3"
 
 services:
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    build: 
+      context: ./es
+      dockerfile: Dockerfile 
+      args: 
+        SLACK_ALERT_P1: ${SLACK_ALERT_P1}
+        SLACK_ALERT_P2: ${SLACK_ALERT_P2}
+    image: "elasticsearch:${TAG}"
     container_name: es
     volumes:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:rw
+      - ./watcher:/var/watcher:ro
     ports:
       - 9200:9200
       - 9300:9300
     environment:
       - discovery.type=single-node
-
   kibana:
     image: docker.elastic.co/kibana/kibana:7.6.0
     container_name: kibana
@@ -29,13 +35,16 @@ services:
       - es:elasticsearch
       - kibana:kibana
     environment:
-      - ELASTIC_SEARCH_HOSTS=["elasticsearch:9200"]
-      - KIBANA_HOST="kibana:5601"
-      - DEBUG_LEVEL=info
+      - ELASTIC_SEARCH_HOSTS=[${ELASTIC_SEARCH_HOSTS}]
+      - KIBANA_HOST=${KIBANA_HOST}
+      - DEBUG_LEVEL=${DEBUG_LEVEL}
+      - P1_URLS=${P1_URLS}
+      - P2_URLS=${P2_URLS}
     volumes:
       - ./heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
       - ./monitors.d:/usr/share/heartbeat/monitors.d:ro
-    command: --strict.perms=false
+    command:
+      - --strict.perms=false
     restart: on-failure
     depends_on:
       - es

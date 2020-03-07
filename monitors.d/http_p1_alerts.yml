@@ -3,9 +3,7 @@
   schedule: "@every 60s"
   timeout: 30s
   tags: ["alert_p1"]
-  urls:
-    - https://dummy-error-app.london.cloudapps.digital/
-    - https://dummy-error-app.london.cloudapps.digital/db
+  urls: "${P1_URLS}"
   check:
     request.method: GET
 
