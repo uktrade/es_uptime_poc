@@ -90,7 +90,7 @@
           "to": [
             "dvadgama"
           ],
-          "text": "Something Went Wrong.",
+          "text": "P1 Alert",
           "dynamic_attachments": {
             "list_path": "ctx.payload.aggregations.by_url.buckets",
             "attachment_template": {
