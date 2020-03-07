@@ -11,8 +11,7 @@ services:
     image: "elasticsearch:${TAG}"
     container_name: es
     volumes:
-      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:rw
-      - ./watcher:/var/watcher:ro
+      - ./configs/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:rw
     ports:
       - 9200:9200
       - 9300:9300
@@ -41,8 +40,8 @@ services:
       - P1_URLS=${P1_URLS}
       - P2_URLS=${P2_URLS}
     volumes:
-      - ./heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
-      - ./monitors.d:/usr/share/heartbeat/monitors.d:ro
+      - ./configs/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
+      - ./configs/monitors.d:/usr/share/heartbeat/monitors.d:ro
     command:
       - --strict.perms=false
     restart: on-failure
