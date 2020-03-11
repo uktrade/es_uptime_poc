@@ -8,9 +8,7 @@
     "search": {
       "request": {
         "search_type": "query_then_fetch",
-        "indices": [
-          "heartbeat-*"
-        ],
+        "indices": ["heartbeat-*"],
         "rest_total_hits_as_int": true,
         "body": {
           "size": 0,
@@ -87,9 +85,6 @@
         "account": "alert_p1",
         "message": {
           "from": "Heartbeat",
-          "to": [
-            "dvadgama"
-          ],
           "text": "P1 Alert",
           "dynamic_attachments": {
             "list_path": "ctx.payload.aggregations.by_url.buckets",
@@ -97,10 +92,18 @@
               "color": "danger",
               "title": "{{key}}",
               "title_link": "{{key}}",
-              "text": "{{#by_http_content.buckets}}{{key}}{{/by_http_content.buckets}}"
+              "text": "{{#by_http_content.buckets}} {{key}} {{/by_http_content.buckets}}"
             }
           }
         }
+      }
+    },
+    "notify-pagerduty": {
+      "throttle_period": "5m",
+      "pagerduty": {
+        "account": "uptime",
+        "attach_payload": true,
+        "description": "P1 Alert for {{#ctx.payload.aggregations.by_url.buckets}} {{key}} {{/ctx.payload.aggregations.by_url.buckets}}"
       }
     }
   }

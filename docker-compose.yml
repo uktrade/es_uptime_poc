@@ -2,12 +2,13 @@ version: "3"
 
 services:
   es:
-    build: 
+    build:
       context: ./es
-      dockerfile: Dockerfile 
-      args: 
+      dockerfile: Dockerfile
+      args:
         SLACK_ALERT_P1: ${SLACK_ALERT_P1}
         SLACK_ALERT_P2: ${SLACK_ALERT_P2}
+        PAGERDUTY_KEY: ${PAGERDUTY_KEY}
     image: "elasticsearch:${TAG}"
     container_name: es
     volumes:

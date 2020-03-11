@@ -4,6 +4,7 @@
   timeout: 30s
   tags: ["alert_p2"]
   urls: "${P2_URLS}"
+  max_redirects: 3
   check:
     request.method: GET
 

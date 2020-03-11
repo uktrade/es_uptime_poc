@@ -30,7 +30,7 @@ do
     alert_name=`basename $filename .json`
 
     echo "Adding/Updating ${alert_name}"
-    curl -H "Content-Type: application/json"  -d @./configs/watcher/${filename} http://${ES_HOST}/_watcher/watch/${alert_name} > /dev/null 2>&1  
+    curl -H "Content-Type: application/json"  -d @./configs/watcher/${filename} http://${ES_HOST}/_watcher/watch/${alert_name}?active=false > /dev/null 2>&1  
 done
 
 until

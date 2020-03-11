@@ -87,9 +87,6 @@
         "account": "alert_p2",
         "message": {
           "from": "Heartbeat",
-          "to": [
-            "dvadgama"
-          ],
           "text": "P2 Alert",
           "dynamic_attachments": {
             "list_path": "ctx.payload.aggregations.by_url.buckets",
