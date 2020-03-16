@@ -1,0 +1,13 @@
+- type: http
+  name: P1_HTTP
+  schedule: "@every 60s"
+  timeout: 30s
+  tags: ["alert_p1"]
+  urls: "${P1_URLS}"
+  max_redirects: 3
+  check:
+    request.method: GET
+
+    response:
+      status: 200
+      body: OK

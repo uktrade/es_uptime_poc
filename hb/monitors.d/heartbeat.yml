@@ -1,0 +1,13 @@
+- type: http
+  name: Monitor_The_Monitor
+  schedule: "@every 60s"
+  timeout: 30s
+  urls:
+    - http://hb1:5066/
+    - http://hb2:5066/
+
+  check:
+    request.method: GET
+
+    response:
+      status: 200
