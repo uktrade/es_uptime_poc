@@ -1,6 +1,11 @@
 output.elasticsearch:
   hosts: "${ELASTIC_SEARCH_HOSTS}"
 
+setup.ilm.enabled: auto
+setup.ilm.rollover_alias: "heartbeat"
+setup.ilm.pattern: "{now/M{yyyy.MM}}-000001" 
+
+
 setup.kibana:
   host: "${KIBANA_HOST}"
 
