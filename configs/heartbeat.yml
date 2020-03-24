@@ -2,7 +2,11 @@ output.elasticsearch:
   hosts: "${ELASTIC_SEARCH_HOSTS}"
 
 output.elasticsearch.index: "heartbeat"
-setup.ilm.enabled: auto
+
+setup.template.name: "heartbeat"
+setup.template.pattern: "heartbeat-*"
+
+setup.ilm.enabled: true
 setup.ilm.rollover_alias: "heartbeat"
 setup.ilm.pattern: "{now/M{yyyy.MM}}-000001" 
 
