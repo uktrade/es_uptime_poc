@@ -10,4 +10,4 @@ echo ${SLACK_ALERT_P1} | bin/elasticsearch-keystore add --stdin xpack.notificati
 echo ${SLACK_ALERT_P2} | bin/elasticsearch-keystore add --stdin xpack.notification.slack.account.alert_p2.secure_url &&\
 echo ${PAGERDUTY_KEY} | bin/elasticsearch-keystore add --stdin xpack.notification.pagerduty.account.uptime.secure_service_api_key
 
-exec /usr/local/bin/docker-entrypoint.sh
+/usr/local/bin/docker-entrypoint.sh
