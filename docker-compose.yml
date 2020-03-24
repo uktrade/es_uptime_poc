@@ -14,7 +14,7 @@ services:
       - 9200:9200
       - 9300:9300
     environment:
-      - discovery.type=single-node
+      - DISCOVERY_TYPE=${DISCOVERY_TYPE}
       - SLACK_ALERT_P1=${SLACK_ALERT_P1}
       - SLACK_ALERT_P2=${SLACK_ALERT_P2}
       - PAGERDUTY_KEY=${PAGERDUTY_KEY}
