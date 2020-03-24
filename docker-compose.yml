@@ -3,24 +3,22 @@ version: "3"
 services:
   es:
     build:
-      context: ./es
-      dockerfile: Dockerfile
-      args:
-        SLACK_ALERT_P1: ${SLACK_ALERT_P1}
-        SLACK_ALERT_P2: ${SLACK_ALERT_P2}
-        PAGERDUTY_KEY: ${PAGERDUTY_KEY}
+      context: ./
+      dockerfile: es/Dockerfile
     image: "elasticsearch:${TAG}"
     container_name: elasticsearch
     hostname: elasticsearch
     networks:
       - heartbeat
-    volumes:
-      - ./configs/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:rw
     ports:
       - 9200:9200
       - 9300:9300
     environment:
       - discovery.type=single-node
+      - SLACK_ALERT_P1=${SLACK_ALERT_P1}
+      - SLACK_ALERT_P2=${SLACK_ALERT_P2}
+      - PAGERDUTY_KEY=${PAGERDUTY_KEY}
+      
   kibana:
     image: docker.elastic.co/kibana/kibana:7.6.0
     container_name: kibana
@@ -32,8 +30,14 @@ services:
     depends_on:
       - es
 
+  hb:
+    build:
+      context: ./
+      dockerfile: hb/Dockerfile
+    image: "heartbeat:${TAG}"
+
   hb1:
-    image: docker.elastic.co/beats/heartbeat:7.6.0
+    image: "heartbeat:${TAG}"
     container_name: hb1
     hostname: hb1
     networks:
@@ -42,20 +46,20 @@ services:
       - ELASTIC_SEARCH_HOSTS=[${ELASTIC_SEARCH_HOSTS}]
       - KIBANA_HOST=${KIBANA_HOST}
       - DEBUG_LEVEL=${DEBUG_LEVEL}
-      - P1_URLS=${P1_URLS}
-      - P2_URLS=${P2_URLS}
-    volumes:
-      - ./configs/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
-      - ./configs/monitors.d:/usr/share/heartbeat/monitors.d:ro
+      - P1_URLS_STATUS_ONLY=${P1_URLS_STATUS_ONLY}
+      - P1_URLS_WITH_BODY_CHECK=${P1_URLS_WITH_BODY_CHECK}
+      - P2_URLS_STATUS_ONLY=${P2_URLS_STATUS_ONLY}
+      - P2_URLS_WITH_BODY_CHECK=${P2_URLS_WITH_BODY_CHECK}
     command:
       - --strict.perms=false
     restart: on-failure
     depends_on:
+      - hb
       - es
       - kibana
 
   hb2:
-    image: docker.elastic.co/beats/heartbeat:7.6.0
+    image: "heartbeat:${TAG}"
     container_name: hb2
     hostname: hb2
     networks:
@@ -64,15 +68,15 @@ services:
       - ELASTIC_SEARCH_HOSTS=[${ELASTIC_SEARCH_HOSTS}]
       - KIBANA_HOST=${KIBANA_HOST}
       - DEBUG_LEVEL=${DEBUG_LEVEL}
-      - P1_URLS=${P1_URLS}
-      - P2_URLS=${P2_URLS}
-    volumes:
-      - ./configs/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
-      - ./configs/monitors.d:/usr/share/heartbeat/monitors.d:ro
+      - P1_URLS_STATUS_ONLY=${P1_URLS_STATUS_ONLY}
+      - P1_URLS_WITH_BODY_CHECK=${P1_URLS_WITH_BODY_CHECK}
+      - P2_URLS_STATUS_ONLY=${P2_URLS_STATUS_ONLY}
+      - P2_URLS_WITH_BODY_CHECK=${P2_URLS_WITH_BODY_CHECK}
     command:
       - --strict.perms=false
     restart: on-failure
     depends_on:
+      - hb
       - es
       - kibana
 

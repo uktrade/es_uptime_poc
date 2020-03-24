@@ -1,9 +1,9 @@
 - type: http
-  name: P1_HTTP
+  name: P2_HTTP_BODY_CHECK
   schedule: "@every 60s"
   timeout: 30s
-  tags: ["alert_p1"]
-  urls: "${P1_URLS}"
+  tags: ["alert_p2"]
+  urls: "${P2_URLS_WITH_BODY_CHECK}"
   max_redirects: 3
   check:
     request.method: GET

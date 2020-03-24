@@ -1,13 +1,12 @@
 - type: http
-  name: P2_HTTP
+  name: P2_HTTP_STATUS_ONLY
   schedule: "@every 60s"
   timeout: 30s
   tags: ["alert_p2"]
-  urls: "${P2_URLS}"
+  urls: "${P2_URLS_STATUS_ONLY}"
   max_redirects: 3
   check:
     request.method: GET
 
     response:
       status: 200
-      body: OK

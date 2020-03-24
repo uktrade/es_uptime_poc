@@ -1,11 +1,10 @@
 - type: http
-  name: Monitor_The_Monitor
+  name: P1_HTTP_STATUS_ONLY
   schedule: "@every 60s"
   timeout: 30s
-  urls:
-    - http://hb1:5066/
-    - http://hb2:5066/
-
+  tags: ["alert_p1"]
+  urls: "${P1_URLS_STATUS_ONLY}"
+  max_redirects: 3
   check:
     request.method: GET
 

@@ -12,7 +12,12 @@ TAG=`grep TAG .env | awk -F '=' '{print $2}'`
 
 if [ `docker images -q elasticsearch:${TAG} | wc -l` -eq 0 ]
 then
-    docker-compose build
+    docker-compose build es
+fi 
+
+if [ `docker images -q heartbeat:${TAG} | wc -l` -eq 0 ]
+then
+    docker-compose build hb
 fi 
 
 docker-compose up -d

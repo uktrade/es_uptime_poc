@@ -4,16 +4,3 @@ xpack.watcher.enabled: true
 xpack.monitoring.enabled: false
 xpack.security.enabled: false
 xpack.license.self_generated.type: trial
-
-xpack.notification.slack:
-  account:
-    alert_p1:
-        message_defaults:
-          from: Uptime
-          attachment:
-            color: "#36a64f"
-    alert_p2:
-        message_defaults:
-          from: Uptime
-          attachment:
-            color: "#36a64f"
